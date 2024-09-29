@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VypeX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #141414;
+            color: #f1f1f1;
+            text-align: center;
+            margin: 50px;
+            user-select: none; 
+        }
+
+        h1 {
+            text-shadow: 0 0 5px #2464C7, 0 0 20px #2464C7; 
+        }
+
+        nav {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 20px; 
+        }
+
+        nav img {
+            height: 100px; 
+            margin-right: 20px; 
+        }
+
+        nav a {
+            color: #f1f1f1; 
+            text-decoration: none; 
+            margin: 0 15px;
+            cursor: pointer; 
+        }
+
+        nav a:hover {
+            text-decoration: underline; 
+        }
+
+        button {
+            background: #021D42; 
+            border: 1px solid #2464C7;
+            color: #f1f1f1; 
+            padding: 10px 20px; 
+            cursor: pointer; 
+            transition: background 0.3s, color 0.3s; 
+            font-family: 'Press Start 2P', cursive; 
+            font-weight: 100;
+            border-radius: 5px; 
+        }
+
+        button:hover {
+            background: #2464C7; 
+            color: #fff; 
+        }
+
+        .active {
+            text-decoration: underline; 
+        }
+
+        .tab-content {
+            display: none; 
+        }
+
+        .active-tab {
+            display: block; 
+        }
+
+        #licenseKeyContainer {
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- Include reCAPTCHA -->
+
+<body>
+    <nav>
+        <img src="Logo.png" alt="Logo"> 
+        <div>
+            <a id="home-link" class="active" onclick="showTab('home', this)">Home</a>
+            <a id="get-key-link" onclick="showTab('get-key', this)">Get Key</a>
+        </div>
+    </nav>
+    
+    <div id="home" class="tab-content active-tab">
+        <h1>VypeX!</h1>
+        <button id="Download" class="download-button" onclick="downloadFile()">Download</button>
+        <button id="Get-key" class="getkey-button" onclick="getKey()">Get Key</button>
+    </div>
+    
+    <div id="get-key" class="tab-content">
+        <h1>Verify You Are Not a Robot:</h1>
+        <div class="captcha">
+          <div class="g-recaptcha" data-sitekey="6Le6gFIqAAAAAGs83iHVuDLzFyyZFh7sabw1n378"></div>
+        </div>
+        <button id="verifyButton" onclick="verifyCaptcha()">Verify</button>
+        
+        <div id="licenseKeyContainer">
+            <h1>Your Key:</h1>
+            <p id="licenseKey">Loading...</p>
+            <button id="copyButton" onclick="copyToClipboard()" disabled>
+              <i class="fas fa-copy icon"></i> Copy
+            </button>
+        </div>
+    </div>
+
+    <script>
+        async function fetchLicenseKey() {
+            try {
+                const response = await fetch('http://localhost:3000/api/license-key');
+                const data = await response.json();
+                document.getElementById('licenseKey').innerText = data.licenseKey;
+            } catch (error) {
+            }
+        }
+
+        setInterval(fetchLicenseKey, 1000);
+
+        window.onload = () => {
+            fetchLicenseKey(); 
+        };
+
+        async function verifyCaptcha() {
+            const response = grecaptcha.getResponse();
+            if (!response) {
+                alert('Please verify that you are not a robot.');
+                return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:3000/api/verify-captcha', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ response })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('licenseKeyContainer').style.display = 'block'; 
+                    document.getElementById('copyButton').disabled = false;
+                    fetchLicenseKey(); // Fetch and display the license key
+                    alert('Verification successful! You can now get your key.');
+                } else {
+                    alert('Verification failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error verifying CAPTCHA:', error);
+                alert('An error occurred while verifying. Please try again.');
+            }
+        }
+
+        function copyToClipboard() {
+            const licenseKey = document.getElementById('licenseKey').innerText;
+            navigator.clipboard.writeText(licenseKey).then(() => {
+                const copyButton = document.getElementById('copyButton');
+                copyButton.innerHTML = '<i class="fas fa-copy icon"></i> Copied';
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-copy icon"></i> Copy'; 
+                }, 1000);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        function showTab(tabName, activeLink) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.remove('active-tab'); 
+            });
+            document.getElementById(tabName).classList.add('active-tab'); 
+
+            const links = document.querySelectorAll('nav a');
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+            activeLink.classList.add('active');
+        }
+
+        function getKey() {
+            showTab('get-key', document.getElementById('get-key-link'));
+        }
+
+        document.addEventListener('contextmenu', e => e.preventDefault()); 
+        document.addEventListener('copy', e => e.preventDefault()); 
+    </script>
+</body>
+</html>

@@ -72,13 +72,12 @@
             display: block; 
         }
 
+        /* Initially hide the licenseKeyContainer */
         #licenseKeyContainer {
-            display: none; /* Initially hidden */
+            display: none;
         }
     </style>
 </head>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- Include reCAPTCHA -->
-
 <body>
     <nav>
         <img src="Logo.png" alt="Logo"> 
@@ -95,70 +94,76 @@
     </div>
     
     <div id="get-key" class="tab-content">
-        <h1>Verify You Are Not a Robot:</h1>
-        <div class="captcha">
-          <div class="g-recaptcha" data-sitekey="6Le6gFIqAAAAAGs83iHVuDLzFyyZFh7sabw1n378"></div>
-        </div>
-        <button id="verifyButton" onclick="verifyCaptcha()">Verify</button>
-        
+        <button id="verifyButton" onclick="startVerification()">Verify</button>
+
+        <!-- Initially hidden licenseKeyContainer -->
         <div id="licenseKeyContainer">
             <h1>Your Key:</h1>
-            <p id="licenseKey">Loading...</p>
+            <p id="licenseKey">Please complete the verification to get your key</p>
+            <button id="getKeyButton" onclick="getKeyAfterVerification()" disabled>
+                Get Key
+            </button>
             <button id="copyButton" onclick="copyToClipboard()" disabled>
-              <i class="fas fa-copy icon"></i> Copy
+                <i class="fas fa-copy icon"></i> Copy
             </button>
         </div>
-    </div>
+    </div>  
 
     <script>
+        let verificationTab;
+
+        // Mở tab mới cho quá trình xác minh
+        function startVerification() {
+            verificationTab = window.open('https://loot-link.com/s?e02aede6', '_blank');
+            localStorage.setItem('verificationCompleted', 'false'); // Gán giá trị mặc định trước khi xác minh
+            checkVerificationCompletion(); // Gọi hàm kiểm tra
+        }
+
+        // Kiểm tra xem quá trình xác minh đã hoàn thành chưa
+        function checkVerificationCompletion() {
+            const interval = setInterval(() => {
+                const verificationStatus = localStorage.getItem('verificationCompleted');
+                
+                if (verificationStatus === 'true') {
+                    document.getElementById('getKeyButton').disabled = false; // Enable Get Key button
+                    document.getElementById('licenseKeyContainer').style.display = 'block'; // Show the license key container
+                    document.getElementById('verifyButton').style.display = 'none'; // Hide the Verify button
+                    clearInterval(interval); // Stop checking
+                    if (verificationTab) verificationTab.close(); // Close the verification tab
+                }
+            }, 1000); // Kiểm tra mỗi giây
+        }
+
+        // Khi người dùng nhấn nút "Get Key" sau khi đã xác minh
+        function getKeyAfterVerification() {
+            const verificationCompleted = localStorage.getItem('verificationCompleted');
+            
+            if (verificationCompleted === 'true') {
+                fetchLicenseKey(); // Gọi hàm để lấy key
+            } else {
+                alert("Please complete the verification first.");
+            }
+        }
+
+        // Hàm lấy key từ API (sau khi đã xác minh)
         async function fetchLicenseKey() {
             try {
-                const response = await fetch('http://localhost:3000/api/license-key');
-                const data = await response.json();
-                document.getElementById('licenseKey').innerText = data.licenseKey;
+              const response = await fetch('http://localhost:3000/api/license-key');
+if (!response.ok) {
+    throw new Error('Error fetching license key');
+}
+const data = await response.json();
+
+                document.getElementById('licenseKey').innerText = `Your Key: ${data.licenseKey}`;
+                document.getElementById('copyButton').disabled = false;
             } catch (error) {
+                console.error('Error fetching the license key:', error);
             }
         }
 
-        setInterval(fetchLicenseKey, 1000);
-
-        window.onload = () => {
-            fetchLicenseKey(); 
-        };
-
-        async function verifyCaptcha() {
-            const response = grecaptcha.getResponse();
-            if (!response) {
-                alert('Please verify that you are not a robot.');
-                return;
-            }
-
-            try {
-                const res = await fetch('http://localhost:3000/api/verify-captcha', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ response })
-                });
-
-                const data = await res.json();
-                if (data.success) {
-                    document.getElementById('licenseKeyContainer').style.display = 'block'; 
-                    document.getElementById('copyButton').disabled = false;
-                    fetchLicenseKey(); // Fetch and display the license key
-                    alert('Verification successful! You can now get your key.');
-                } else {
-                    alert('Verification failed. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error verifying CAPTCHA:', error);
-                alert('An error occurred while verifying. Please try again.');
-            }
-        }
-
+        // Hàm sao chép key vào clipboard
         function copyToClipboard() {
-            const licenseKey = document.getElementById('licenseKey').innerText;
+            const licenseKey = document.getElementById('licenseKey').innerText.replace('Your Key: ', '');
             navigator.clipboard.writeText(licenseKey).then(() => {
                 const copyButton = document.getElementById('copyButton');
                 copyButton.innerHTML = '<i class="fas fa-copy icon"></i> Copied';

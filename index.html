@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <title>VypeX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/Logo.png" type="image/x-icon" sizes="725x725" />
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+    </style>    
+</head>
+<!-- Body -->
+<body class="main">
+    <div class="bg-background bg-cover text-white">
+        <div class="h-[100px] bg-[#112F49] bg-cover border border-[#475E8299] bg-fixed overflow-hidden relative">
+            <div class="p-12 flex items-center z-auto justify-end">
+                <div>
+                    <a href="home.html">
+                        <img alt="Logo" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" class="cursor-pointer" src="assets/Logo.png"/>
+                    </a>
+                </div>
+                <div class="ml-auto">
+                    <div class="ml-8 hidden md:flex">
+                        <a class="mr-4 cursor-pointer mr-4 font-bold">HOME</a>
+                        <a href="https://discord.gg/yXjrCGEM9G" class="mr-4 font-bold">DISCORD</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="p-4  flex items-center justify-center">
+                <div class="text-center">
+                    <h1 class="text-6xl font-bold mb-6">VypeX</h1>
+                    <div>
+                        <button class="gradient">Download</button>
+                        <a href="getkey.html">
+                            <button class="gradient">Get Key</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Support -->
+        <div class="text-center">
+            <p class="text-2xl italic opacity-60 font-light mt-4">Support</p>
+            <div class="flex justify-center">
+                <!-- Windows Card -->
+                <div id="Card" data-tilt="true" data-tilt-scale="1.1" data-tilt-max="15" class="cursor-pointer drop-shadow-lg mt-8 w-64 h-80 bg-[#112F49] backdrop-blur rounded-lg border border-[#355168] m-4 fade-in">
+                    <p class="pt-8 text-2xl font-bold">Windows</p>
+                    <img alt="Windows Logo" loading="lazy" width="64" height="64" decoding="async" data-nimg="1" class="mx-auto my-auto mt-16" style="color:transparent" src="assets/Windows.svg" />
+                </div>
+            </div>
+            <!-- Card about executor -->
+            <p class="text-2xl italic opacity-60 font-light mt-4">About</p>
+            <div class="text-center flex flex-wrap justify-center">
+                <div class="flex flex-wrap justify-center">
+                    <!-- Uncexecutor Card -->
+                    <div id="Card" data-tilt="true" data-tilt-scale="1.1" data-tilt-max="15" class="drop-shadow-lg w-96 h-64 bg-[#112F49] m-4 mt-8 backdrop-blur rounded-lg border border-[#355168] bg-cover fade-in">
+                        <div class="flex items-center text-2xl font-bold">
+                            <img alt="Icon" loading="lazy" width="48" height="48" src="assets/code.png" class="w-12 h-12 m-4" />
+                            <p>Unc executor</p>
+                        </div>
+                        <p class="text-xl text-left ml-8 mr-8">Inject custom scripts into your gameplay at level 7, making it possible to execute code commands for roblox cheats.</p>
+                    </div>
+                    <!-- Key Card -->
+                    <div id="Card" data-tilt="true" data-tilt-scale="1.1" data-tilt-max="15" class="drop-shadow-lg w-96 h-64 bg-[#112F49] m-4 mt-8 backdrop-blur rounded-lg border border-[#355168] bg-cover fade-in">
+                        <div class="flex items-center text-2xl font-bold">
+                            <img alt="Icon" loading="lazy" width="48" height="48" src="assets/ticket.png" class="w-12 h-12 m-4" />
+                            <p>key</p>
+                        </div>
+                        <p class="text-xl text-left ml-8 mr-8">For executors, the key can be obtained for free with an expiration time of 48 hours.</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="text-center flex flex-wrap justify-center">
+                <div class="flex flex-wrap justify-center">
+                    <!-- Script Hub Card -->
+                    <div id="Card" data-tilt="true" data-tilt-scale="1.1" data-tilt-max="15" class="drop-shadow-lg w-96 h-64 bg-[#112F49] m-4 mt-8 backdrop-blur rounded-lg border border-[#355168] bg-cover fade-in">
+                        <div class="flex items-center text-2xl font-bold">
+                            <img alt="Icon" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 m-4" style="color:transparent" src="assets/scriptHub.png" />
+                            <p>Script hub</p>
+                        </div>
+                        <p class="text-xl text-left ml-8 mr-8">The script library is equipped with unique features and a simple, elegant interface.</p>
+                    </div>
+                    <!-- Interface Card -->
+                    <div id="Card" data-tilt="true" data-tilt-scale="1.1" data-tilt-max="15" class="drop-shadow-lg w-96 h-64 bg-[#112F49] m-4 mt-8 backdrop-blur rounded-lg border border-[#355168] bg-cover fade-in">
+                        <div class="flex items-center text-2xl font-bold">
+                            <img alt="icon" loading="lazy" width="48" height="48" decoding="async" data-nimg="1" class="w-12 h-12 m-4" style="color:transparent" src="assets/Interface.png" />
+                            <p>Interface</p>
+                        </div>
+                        <p class="text-xl text-left ml-8 mr-8">The executor's interface is made simple but has a unique nature.</p>
+                    </div>
+                </div>
+            </div>
+                    <!-- Preview -->
+        <p class="text-2xl italic opacity-60 font-light mt-4">Showcase</p>
+        <div class="text-center flex flex-wrap justify-center" id="features">
+            <img data-tilt alt="Showcase 1" loading="lazy" width="400" height="200" decoding="async" class="m-4 drop-shadow-lg h-auto fade-in" src="assets/Showcase1.png" />
+            <img data-tilt alt="Showcase 2" loading="lazy" width="400" height="200" decoding="async" class="m-4 drop-shadow-lg h-auto fade-in" src="assets/Showcase2.png" />
+        </div>
+        <div class="h-16 bg-[#112F49] backdrop-blur-lg flex border border-[#475E8299] items-center justify-center"><p class="text-center italic opacity-60"></p>
+            <p class="text-center italic opacity-60">© 2024 VypeX</p>
+        </div>
+        </div>
+        <!-- Script -->
+        <script>
+            VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+                max: 15,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.1,
+            });
+
+            const elementsToShow = document.querySelectorAll('.fade-in');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+                        entry.target.classList.add('visible');
+                    } else if (!entry.isIntersecting && entry.target.classList.contains('visible')) {
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            });
+
+            elementsToShow.forEach(element => {
+                observer.observe(element);
+            });
+        </script>
+    </div>
+</body>
+</html>

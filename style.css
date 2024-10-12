@@ -4,7 +4,7 @@ img {
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif; /* Use a more generic font for better compatibility */
+    font-family: 'Dongle', sans-serif;
 }
 
 a {
@@ -41,11 +41,6 @@ img {
     transition: transform 0.2s ease-in-out;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif; /* Sử dụng font chữ phổ biến hơn cho tính tương thích tốt hơn */
-}
-
 a {
     color: inherit;
     text-decoration: inherit;
@@ -60,41 +55,63 @@ a {
     position: relative;
 }
 
-/* Định nghĩa các lớp khác tại đây... */
-
-.button-main {
-    text-align: center;
-    padding: 1.2rem;
-    stroke: #fff;
-    font-weight: 600;
-    border-radius: 1rem;
-    border-width: 2px;
-    width: 35%; 
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    cursor: pointer;
-}
-
 button {
-    background: #021D42; 
-    border: 1px solid #2464C7;
-    color: #fff;
-    width: 150px;
-    height: 50px;
-    border-radius: 5px;
-    font-size: 20px;
+    margin: 5px;
+    margin-top: 20px;
+    border: none;
+    width: 100px;
+    height: 40px;
+    color: #FFF;
     cursor: pointer;
-    margin-top: 30px;
-    font-weight: 500;
-    font-family: "Poppins", sans-serif;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    font-family: 'Dongle', sans-serif;
+    font-weight: 500px;
+    font-size: 20px;
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+  }
+  button::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #2464C7;
+    background-color: #021D42;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+  .gradient::before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #ff4141, #ff9743, #ffd500, #00ff77,
+      #00d8fe, #537895, #FF00C8, #ff4141
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600%;
+    z-index: -1;
+    width: calc(100% + 4px);
+    height:  calc(100% + 4px);
+    filter: blur(8px);
+    animation: glowing 20s linear infinite;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+    opacity: 0;
   }
   
-  button:hover {
-    background: #2464C7; 
-    color: #fff; 
-    transform: translateY(-3px);
+  @keyframes glowing {
+    0% {background-position: 0 0;}
+    50% {background-position: 400% 0;}
+    100% {background-position: 0 0;}
+  }
+  
+  .gradient:hover::before {
+    opacity: 1;
   }
 
 .icon {
@@ -341,7 +358,7 @@ button {
 }
 
 .bg-\[\#112F49\] {
-    background-color: rgb(12 12 12/var(--tw-bg-opacity))
+    background-color: rgb(15 15 15)
 }
 
 .bg-background {

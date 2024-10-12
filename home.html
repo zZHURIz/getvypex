@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
     <title>VypeX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" href="assets/Logo.png" type="image/x-icon" sizes="725x725" />
     <style>
         .fade-in {
-
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -19,7 +21,7 @@
             transform: translateY(0);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
-    </style>
+    </style>    
 </head>
 <!-- Body -->
 <body class="main">
@@ -27,7 +29,9 @@
         <div class="h-[100px] bg-[#112F49] bg-cover border border-[#475E8299] bg-fixed overflow-hidden relative">
             <div class="p-12 flex items-center z-auto justify-end">
                 <div>
-                    <img alt="Logo" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" class="cursor-pointer" src="assets/Logo.png" />
+                    <a href="home.html">
+                        <img alt="Logo" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" class="cursor-pointer" src="assets/Logo.png"/>
+                    </a>
                 </div>
                 <div class="ml-auto">
                     <div class="ml-8 hidden md:flex">
@@ -37,12 +41,14 @@
                 </div>
             </div>
             <!-- Title -->
-            <div class="p-4 flex items-center justify-center">
+            <div class="p-4  flex items-center justify-center">
                 <div class="text-center">
                     <h1 class="text-6xl font-bold mb-6">VypeX</h1>
                     <div>
-                        <button class="">Download</button>
-                        <button class="">Get Key</button>
+                        <button class="gradient">Download</button>
+                        <a href="getkey.html">
+                            <button class="gradient">Get Key</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -55,10 +61,6 @@
                 <div id="Card" data-tilt="true" data-tilt-scale="1.1" data-tilt-max="15" class="cursor-pointer drop-shadow-lg mt-8 w-64 h-80 bg-[#112F49] backdrop-blur rounded-lg border border-[#355168] m-4 fade-in">
                     <p class="pt-8 text-2xl font-bold">Windows</p>
                     <img alt="Windows Logo" loading="lazy" width="64" height="64" decoding="async" data-nimg="1" class="mx-auto my-auto mt-16" style="color:transparent" src="assets/Windows.svg" />
-                </div>
-                <!-- Android Card -->
-                <div id="Card" data-tilt="true" data-tilt-scale="1.1" data-tilt-max="15" class="relative cursor-pointer drop-shadow-lg mt-8 w-64 h-80 bg-[#112F49] backdrop-blur-lg rounded-lg border border-[#355168] m-4 fade-in">
-                    <p class="pt-8 text-2xl font-light">Coming soon...</p>
                 </div>
             </div>
             <!-- Card about executor -->
@@ -109,6 +111,9 @@
         <div class="text-center flex flex-wrap justify-center" id="features">
             <img data-tilt alt="Showcase 1" loading="lazy" width="400" height="200" decoding="async" class="m-4 drop-shadow-lg h-auto fade-in" src="assets/Showcase1.png" />
             <img data-tilt alt="Showcase 2" loading="lazy" width="400" height="200" decoding="async" class="m-4 drop-shadow-lg h-auto fade-in" src="assets/Showcase2.png" />
+        </div>
+        <div class="h-16 bg-[#112F49] backdrop-blur-lg flex border border-[#475E8299] items-center justify-center"><p class="text-center italic opacity-60"></p>
+            <p class="text-center italic opacity-60">© 2024 Wave Development Team</p>
         </div>
         </div>
         <!-- Script -->

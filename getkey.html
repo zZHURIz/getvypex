@@ -78,12 +78,13 @@
         
                 if (key && currentTime < expirationTime) {
                     document.getElementById('key-display').innerText = `Your Key: ${key}`;
-                    document.getElementById('get-started-btn').style.display = 'block'; // Ẩn nút Get Started
+                    document.getElementById('key-display').style.display = 'none'; 
+                    document.getElementById('get-started-btn').style.display = 'block'; 
                 } else {
-                    // Nếu key đã hết hạn, tạo key mới và hiển thị
                     const newKey = generateKey(); // Tạo key mới
-                    document.getElementById('key-display').innerText = `Your Key: ${newKey}`; // Hiển thị key mới
-                    document.getElementById('get-started-btn').style.display = 'block'; // Hiện lại nút Get Started
+                    document.getElementById('key-display').innerText = `Your Key: ${newKey}`;
+                    document.getElementById('key-display').style.display = 'block'; 
+                    document.getElementById('get-started-btn').style.display = 'none'; 
                 }
         
                 // Tự động làm mới trang khi key hết hạn

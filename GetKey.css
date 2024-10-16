@@ -1,3 +1,4 @@
+
 img {
     transition: transform 0.2s ease-in-out;
 }
@@ -10,25 +11,6 @@ body {
 a {
     color: inherit;
     text-decoration: inherit
-}
-
-@media only screen and (max-width: 600px) {
-    .script-card {
-        width: auto; 
-        margin-bottom: 1rem; 
-    }
-}
-
-@media only screen and (min-width: 601px) and (max-width: 900px) {
-    .script-card {
-        width: calc(48% - 20px); 
-    }
-}
-
-@media only screen and (min-width: 901px) {
-    .script-card {
-        width: calc(24% - 20px);
-    }
 }
 
 /* Cài đặt mặc định cho tất cả các phần tử */
@@ -53,6 +35,12 @@ a {
 
 .relative {
     position: relative;
+}
+
+.size
+{
+    margin-left: -10px;
+   width: 150px;
 }
 
 button {
@@ -295,6 +283,14 @@ button {
     width: 100%
 }
 
+.h1
+{
+    margin-left: 34%;
+    margin-top: -100px;
+    text-align: center; /* Căn giữa văn bản */
+    max-width: 600px; /* Tùy chọn: Giới hạn chiều rộng để văn bản tự động xuống hàng */
+}
+
 .max-w-md {
     max-width: 28rem
 }
@@ -315,26 +311,6 @@ button {
     justify-content: center
 }
 
-.coming-soon {
-    backdrop-filter: blur(5px); 
-}
-
-.rounded {
-    border-radius: .25rem
-}
-
-.rounded-full {
-    border-radius: 9999px
-}
-
-.rounded-lg {
-    border-radius: .5rem
-}
-
-.rounded-md {
-    border-radius: .375rem
-}
-
 .border {
     border-width: 1px
 }
@@ -348,17 +324,47 @@ button {
     border-color: rgb(20, 20, 20)
 }
 
-#Card {
-    background-color: rgba(15, 23, 36, 0.6); /* #0F172499 */
-    background-size: cover;
-    background-position: center;
-    backdrop-filter: blur(10px); /* Tạo hiệu ứng mờ */
-    border: 1px solid #355168;
-    border-radius: 0.75rem; /* rounded-lg */
-}
-
 .bg-\[\#112F49\] {
     background-color: rgb(15 15 15)
+}
+
+.margin
+{
+    margin-top: 30%;
+}
+
+.descolor
+{
+    color: #c1c1c1;
+}
+
+.gradient-text {
+    background: linear-gradient(to bottom, #ffffff, #e7e7e7, #000000); /* Gradient tối dần từ trên xuống */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 2rem; /* Điều chỉnh kích thước chữ nếu cần */
+}
+
+.tagline {
+    font-family: 'Dongle', sans-serif;
+    font-size: 40px;
+    line-height: 1rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: .15em
+}
+
+.dongle
+{
+    font-family: 'Dongle', sans-serif;
+    font-size: 100px;
+}
+
+.header
+{
+    height: 195px;
 }
 
 .bg-background {

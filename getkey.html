@@ -47,6 +47,7 @@
             <h2 class="h1 font-semibold descolor center-text">
                 Each key is valid for 48 hours. Complete basic tasks to obtain it.
             </h2>
+            <div id="key-display" class="fade-in"></div>
             <a href="javascript:void(0);">
                 <button class="gradient size" id="get-started-btn">GET STARTED</button>
             </a>            
@@ -59,14 +60,38 @@
             var link4m_url = 'https://link4m.co/';
             var link4m_api_token = '670a26547680591b3e2a8148';
             var link4m_advert = 2;
-            var link4m_exclude_domains = ['example.com', 'yoursite.com'];
-        </script>
-        <script src='//link4m.co/js/full-script.js'></script>
-        <script>
+            var link4m_exclude_domains = ['https://getvypex.vercel.app/getkey.html', 'https://getvypex.vercel.app/getkey.html'];
+            
+            // Tạo key và thời gian hết hạn
+            function generateKey() {
+                const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
+                const expirationTime = Date.now() + 5 * 60 * 1000; // 5 phút sau
+                localStorage.setItem('vypex_key', key);
+                localStorage.setItem('vypex_key_expiration', expirationTime);
+                return key;
+            }
+
+            function generateRandomSegment() {
+                return Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            }
+
+            // Hiển thị key nếu đã có và còn hiệu lực
+            function displayKey() {
+                const key = localStorage.getItem('vypex_key');
+                const expirationTime = localStorage.getItem('vypex_key_expiration');
+                const currentTime = Date.now();
+
+                if (key && currentTime < expirationTime) {
+                    document.getElementById('key-display').innerText = `Your Key: ${key}`;
+                } else {
+                    const newKey = generateKey();
+                    document.getElementById('key-display').innerText = `Your Key: ${newKey}`;
+                }
+            }
+
             document.getElementById("get-started-btn").addEventListener("click", function() {
-    window.location.href = 'https://link4m.co/st?api=670a26547680591b3e2a8148&url=https://getvypex.vercel.app/getkey.html';
-    
-});
+                window.location.href = 'https://link4m.co/st?api=670a26547680591b3e2a8148&url=https://getvypex.vercel.app/getkey.html';
+            });
 
             VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
                 max: 15,
@@ -90,6 +115,8 @@
             elementsToShow.forEach(element => {
                 observer.observe(element);
             });
+
+            displayKey();
         </script>
     </div>
 </body>

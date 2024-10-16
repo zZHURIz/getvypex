@@ -333,6 +333,11 @@ button {
     margin-top: 30%;
 }
 
+.getkey_button 
+{
+    margin-left: 93vh;
+}
+
 .descolor
 {
     color: #c1c1c1;
@@ -360,6 +365,12 @@ button {
 {
     font-family: 'Dongle', sans-serif;
     font-size: 100px;
+}
+
+.dongle1
+{
+    font-family: 'Dongle', sans-serif;
+    font-size: 30px;
 }
 
 .header

@@ -43,13 +43,13 @@
         </div>
         <!-- Support -->
         <div class="text-center"> 
-            <h2 class="dongle font-bold gradient-text">KEY SYSTEM</h2>
-            <h2 class="h1 font-semibold descolor center-text">
+            <h2 class="dongle font-bold gradient-text fade-in">KEY SYSTEM</h2>
+            <h2 class="h1 font-semibold descolor center-text fade-in">
                 Each key is valid for 48 hours. Complete basic tasks to obtain it.
             </h2>
-            <div id="key-display" class="fade-in"></div>
+            <div id="key-display" class="fade-in dongle1"></div>
             <a href="javascript:void(0);">
-                <button class="gradient size" id="get-started-btn">GET STARTED</button>
+                <button class="gradient size getkey_button fade-in" id="get-started-btn">GET KEY</button>
             </a>            
         </div>
           <div class="margin h-16 bg-[#112F49] backdrop-blur-lg flex border border-[#475E8299] items-center justify-center"><p class="text-center italic opacity-60"></p>
@@ -62,35 +62,49 @@
             var link4m_advert = 2;
             var link4m_exclude_domains = ['https://getvypex.vercel.app/getkey.html', 'https://getvypex.vercel.app/getkey.html'];
             
-            // Tạo key và thời gian hết hạn
             function generateKey() {
-                const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
-                const expirationTime = Date.now() + 1 * 60 * 1000; 
-                localStorage.setItem('vypex_key', key);
-                localStorage.setItem('vypex_key_expiration', expirationTime);
-                return key;
-            }
+    const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
+    const expirationTime = Date.now() + 0 * 60 * 1000; 
+    localStorage.setItem('vypex_key', key);
+    localStorage.setItem('vypex_key_expiration', expirationTime);
+    return key;
+}
 
-            function generateRandomSegment() {
-                return Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            }
+function displayKey() {
+    const key = localStorage.getItem('vypex_key');
+    const expirationTime = localStorage.getItem('vypex_key_expiration');
+    const currentTime = Date.now();
 
-            function displayKey() {
-                const key = localStorage.getItem('vypex_key');
-                const expirationTime = localStorage.getItem('vypex_key_expiration');
-                const currentTime = Date.now();
+    const keyDisplay = document.getElementById('key-display');
+    const getStartedBtn = document.getElementById('get-started-btn');
 
-                if (key && currentTime < expirationTime) {
-                    document.getElementById('key-display').innerText = `Your Key: ${key}`;
-                } else {
-                    const newKey = generateKey();
-                    document.getElementById('key-display').innerText = `Your Key: ${newKey}`;
-                }
-            }
+    if (key && currentTime < expirationTime) {
+        keyDisplay.innerText = `Your Key: ${key}`;
+        keyDisplay.style.display = 'block'; 
+        getStartedBtn.style.display = 'none'; // Ẩn nút "GET KEY"
+    } else {
+        keyDisplay.innerText = ''; // Ẩn key
+        keyDisplay.style.display = 'none'; // Ẩn phần hiển thị key
+        getStartedBtn.style.display = 'block'; // Hiển thị nút "GET KEY"
+        
+        // Tạo key mới khi nút "GET KEY" được nhấn
+        if (currentTime >= expirationTime) {
+            const newKey = generateKey(); // Tạo key mới
+            keyDisplay.innerText = `Your Key: ${newKey}`; // Hiển thị key mới
+            keyDisplay.style.display = 'block'; // Hiển thị key mới
+            
+            // Tự động refresh trang sau 5 giây
+            setTimeout(() => {
+                location.reload(); // Refresh trang
+            }, 5000);
+        }
+    }
+}
 
-            document.getElementById("get-started-btn").addEventListener("click", function() {
-                window.location.href = 'https://link4m.co/st?api=670a26547680591b3e2a8148&url=https://getvypex.vercel.app/getkey.html';
-            });
+document.getElementById("get-started-btn").addEventListener("click", function() {
+    window.location.href = 'https://link4m.co/st?api=670a26547680591b3e2a8148&url=https://getvypex.vercel.app/getkey.html';
+});
+
 
             VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
                 max: 15,

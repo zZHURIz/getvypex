@@ -59,7 +59,7 @@
 
             function generateKey() {
                 const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
-                const expirationTime = Date.now() + 48 * 60 * 60 * 1000; // 48 giờ
+                const expirationTime = Date.now() + 5 * 1000; // 48 giờ
                 localStorage.setItem('vypex_key', key);
                 localStorage.setItem('vypex_key_expiration', expirationTime);
                 return key;

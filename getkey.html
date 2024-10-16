@@ -65,7 +65,7 @@
             // Tạo key và thời gian hết hạn
             function generateKey() {
                 const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
-                const expirationTime = Date.now() + 5 * 60 * 1000; // 5 phút sau
+                const expirationTime = Date.now() + 1 * 60 * 1000; 
                 localStorage.setItem('vypex_key', key);
                 localStorage.setItem('vypex_key_expiration', expirationTime);
                 return key;
@@ -75,7 +75,6 @@
                 return Math.floor(Math.random() * 10000).toString().padStart(4, '0');
             }
 
-            // Hiển thị key nếu đã có và còn hiệu lực
             function displayKey() {
                 const key = localStorage.getItem('vypex_key');
                 const expirationTime = localStorage.getItem('vypex_key_expiration');

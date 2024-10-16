@@ -56,10 +56,10 @@
             var link4m_api_token = '670a26547680591b3e2a8148';
             var link4m_advert = 2;
             var link4m_exclude_domains = ['https://getvypex.vercel.app/getkey.html'];
-
+        
             function generateKey() {
                 const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
-                const expirationTime = Date.now() + 5 * 1000; // 48 giờ
+                const expirationTime = Date.now() + 48 * 60 * 60 * 1000; // 48 giờ
                 localStorage.setItem('vypex_key', key);
                 localStorage.setItem('vypex_key_expiration', expirationTime);
                 return key;
@@ -69,20 +69,26 @@
                 return Math.floor(Math.random() * 10000).toString().padStart(4, '0');
             }
         
+            function resetKey() {
+                localStorage.removeItem('vypex_key');
+                localStorage.removeItem('vypex_key_expiration');
+                displayKey(); // Gọi lại displayKey để làm mới giao diện
+            }
+        
             function displayKey() {
                 const key = localStorage.getItem('vypex_key');
                 const expirationTime = localStorage.getItem('vypex_key_expiration');
                 const currentTime = Date.now();
-
+        
                 const keyDisplay = document.getElementById('key-display');
                 const getStartedBtn = document.getElementById('get-started-btn');
-
+        
                 // Kiểm tra key và thời gian hết hạn
                 if (key && expirationTime && currentTime < expirationTime) {
                     keyDisplay.innerText = `Your Key: ${key}`;
                     keyDisplay.style.display = 'block'; 
                     getStartedBtn.style.display = 'none'; // Ẩn nút "GET KEY"
-
+        
                     // Thiết lập bộ đếm thời gian để làm mới trang sau 48 giờ
                     setTimeout(() => {
                         location.reload();
@@ -90,7 +96,7 @@
                 } else {
                     // Kiểm tra nếu key đã hết hạn
                     if (currentTime >= expirationTime) {
-                        resetKey();
+                        resetKey(); // Xóa key và làm mới giao diện
                     } else {
                         keyDisplay.innerText = ''; // Ẩn key
                         keyDisplay.style.display = 'none'; // Ẩn phần hiển thị key
@@ -98,13 +104,13 @@
                     }
                 }
             }
-
+        
             document.getElementById("get-started-btn").addEventListener("click", function() {
                 const newKey = generateKey(); // Tạo key mới ngay khi nhấn nút
                 displayKey(); // Hiển thị key mới
                 window.location.href = 'https://link4m.co/st?api=670a26547680591b3e2a8148&url=https://getvypex.vercel.app/getkey.html';
             });
-
+        
             VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
                 max: 15,
                 speed: 400,
@@ -129,7 +135,7 @@
             });
         
             displayKey();
-        </script>        
+        </script>             
     </div>
 </body>
 </html>

@@ -55,19 +55,26 @@
             var link4m_url = 'https://link4m.co/';
             var link4m_api_token = '670a26547680591b3e2a8148';
             var link4m_advert = 2;
-            var link4m_exclude_domains = ['https://getvypex.vercel.app/getkey.html', 'https://getvypex.vercel.app/getkey.html'];
+            var link4m_exclude_domains = ['example.com', 'yoursite.com'];
         
             // Tạo key và thời gian hết hạn
             function generateKey() {
                 const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
-                const expirationTime = Date.now() + 5 * 1000; // 5 giây sau
+                const expirationTime = Date.now() + 5 * 1000; // 48 giờ sau
                 localStorage.setItem('vypex_key', key);
                 localStorage.setItem('vypex_key_expiration', expirationTime);
+                location.reload();
                 return key;
             }
         
             function generateRandomSegment() {
-                return Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Chữ cái và số
+                let segment = '';
+                for (let i = 0; i < 4; i++) {
+                    const randomIndex = Math.floor(Math.random() * characters.length);
+                    segment += characters[randomIndex];
+                }
+                return segment;
             }
         
             // Hiển thị key nếu đã có và còn hiệu lực

@@ -19,9 +19,23 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
-    </style>    
+        .dongle1 {
+            font-family: 'Dongle', sans-serif;
+            font-size: 2rem;
+        }
+        .gradient {
+            background: linear-gradient(45deg, #112F49, #475E82);
+        }
+        .getkey_button {
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body class="main">
     <div class="bg-background bg-cover text-white">
@@ -51,72 +65,37 @@
         <div class="margin h-16 bg-[#112F49] backdrop-blur-lg flex border border-[#475E8299] items-center justify-center">
             <p class="text-center italic opacity-60">© 2024 VypeX</p>
         </div>
-        <script type="text/javascript">
-            var link4m_url = 'https://link4m.co/';
-            var link4m_api_token = '670a26547680591b3e2a8148';
-            var link4m_advert = 2;
-            var link4m_exclude_domains = ['example.com', 'yoursite.com'];
-        
-            // Tạo key và thời gian hết hạn
+
+        <script>
+            // Hàm tạo key ngẫu nhiên
             function generateKey() {
-                const key = `${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}-${generateRandomSegment()}`;
-                const expirationTime = Date.now() + 5 * 1000; // 48 giờ sau
-                localStorage.setItem('vypex_key', key);
-                localStorage.setItem('vypex_key_expiration', expirationTime);
-                location.reload();
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let key = '';
+                for (let i = 0; i < 16; i++) {
+                    if (i > 0 && i % 4 === 0) key += '-';
+                    key += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
                 return key;
             }
-        
-            function generateRandomSegment() {
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Chữ cái và số
-                let segment = '';
-                for (let i = 0; i < 4; i++) {
-                    const randomIndex = Math.floor(Math.random() * characters.length);
-                    segment += characters[randomIndex];
-                }
-                return segment;
-            }
-        
-            // Hiển thị key nếu đã có và còn hiệu lực
-            function displayKey() {
-                const key = localStorage.getItem('vypex_key');
-                const expirationTime = localStorage.getItem('vypex_key_expiration');
-                const currentTime = Date.now();
-        
-                if (key && currentTime < expirationTime) {
-                    document.getElementById('key-display').innerText = `Your Key: ${key}`;
-                    document.getElementById('key-display').style.display = 'none'; 
-                    document.getElementById('get-started-btn').style.display = 'block'; // Ẩn nút Get Started
-                } else {
-                    const newKey = generateKey(); // Tạo key mới
-                    document.getElementById('key-display').innerText = `Your Key: ${newKey}`; 
-                    document.getElementById('key-display').style.display = 'block'; 
-                    document.getElementById('get-started-btn').style.display = 'none'; // Hiện nút Get Started
-                }
-        
-                // Kiểm tra thời gian hết hạn và xử lý sau khi hết hạn
-                if (key && currentTime > expirationTime) {
-                    setTimeout(() => {
-                        localStorage.removeItem('vypex_key'); // Xóa key
-                        localStorage.removeItem('vypex_key_expiration'); // Xóa thời gian hết hạn
-                        displayKey(); // Gọi lại hàm để hiển thị key mới
-                    }, 1000); // Thời gian làm mới sau 1 giây
-                }
-            }
-        
-            document.getElementById("get-started-btn").addEventListener("click", function() {
-                window.location.href = 'https://link4m.co/st?api=670a26547680591b3e2a8148&url=https://getvypex.vercel.app/getkey.html';
+
+            // Khi nhấn nút GET KEY
+            document.getElementById('get-started-btn').addEventListener('click', function () {
+                window.location.href = 'https://link4m.com/u6IBysL1';  // Chuyển hướng đến Link4m
+                
+                // Sau khi hoàn thành Link4m, giả sử hoàn thành sau 2 giây
+                setTimeout(function () {
+                    const key = generateKey();  // Tạo key ngẫu nhiên
+                    document.getElementById('key-display').textContent = 'Your Key: ' + key;
+                    
+                    // Ẩn key sau 5 giây
+                    setTimeout(function () {
+                        document.getElementById('key-display').textContent = '';
+                    }, 5000);  // 5000ms = 5 giây
+                }, 2000);  // Giả định Link4m hoàn thành sau 2 giây
             });
-        
-            VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-                max: 15,
-                speed: 400,
-                glare: true,
-                "max-glare": 0.1,
-            });
-        
+
+            // Thêm hiệu ứng fade-in cho các phần tử
             const elementsToShow = document.querySelectorAll('.fade-in');
-        
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
@@ -126,14 +105,11 @@
                     }
                 });
             });
-        
+
             elementsToShow.forEach(element => {
                 observer.observe(element);
             });
-        
-            // Gọi hàm để hiển thị key khi trang được tải
-            displayKey();
-        </script>                    
+        </script>
     </div>
 </body>
 </html>
